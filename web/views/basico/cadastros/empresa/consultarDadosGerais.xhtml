@@ -1,0 +1,48 @@
+<html xmlns:c="http://java.sun.com/jsp/jstl/core"    
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"                   
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+        
+    <div class="ui-fluid">    
+        
+        <p:panelGrid layout="grid" columns="4" 
+                     columnClasses="ui-grid-col-3, ui-grid-col-4, ui-grid-col-2, ui-grid-col-3"
+                     id="pnlGrGeraisConsultar" styleClass="semBorda" 
+                     rendered="#{empresaFace.registroSelecionado != null}"
+                     style="border: none !important; background-color: #dddddd">
+
+            <p:outputLabel value="Código" for="codigoConsultar" style="color: black"/>
+            <p:inputText id="codigoConsultar" disabled="true" 
+                         value="#{empresaFace.registroSelecionado.codigo}"
+                         style="color: blue; font-weight: 700; opacity: 1!important"/>
+            <p:spacer width="5"/><p:spacer width="5"/>
+
+            <p:outputLabel value="Nome" for="nomeConsultar" style="color: black"/>
+            <p:inputText disabled="true" id="nomeConsultar" 
+                         value="#{empresaFace.registroSelecionado.descricao}"
+                         style="color: blue; font-weight: 700; opacity: 1!important"/>
+            <p:spacer width="5"/><p:spacer width="5"/>
+
+            <p:outputLabel value="Nome fantasia" for="nomefantasiaConsultar" style="color: black"/>
+            <p:inputText disabled="true" id="nomefantasiaConsultar" 
+                         value="#{empresaFace.registroSelecionado.nomeFantasia}"
+                         style="color: blue; font-weight: 700; opacity: 1!important"/>
+            <p:spacer width="5"/><p:spacer width="5"/>
+
+            <p:outputLabel value="Mensagem padrão" for="msgpadraoConsultar" style="color: black"/>
+            <p:inputText id="msgpadraoConsultar" disabled="true" 
+                         value="#{empresaFace.registroSelecionado.mensagem}"
+                         style="color: blue; font-weight: 700; opacity: 1!important"/>
+            <p:spacer width="5"/><p:spacer width="5"/>
+
+            <p:outputLabel value="Observação" for="obsConsultar" style="color: black"/>
+            <p:inputTextarea id="obsConsultar" disabled="true" cols="40" rows="5" 
+                             value="#{empresaFace.registroSelecionado.obs}"
+                             style="color: blue; font-weight: 700; opacity: 1!important"/>
+            <p:spacer width="5"/><p:spacer width="5"/>                    
+
+        </p:panelGrid>
+        
+    </div>
+</html> 

@@ -1,0 +1,65 @@
+<html xmlns:c="http://java.sun.com/jsp/jstl/core"    
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"                   
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html">
+        
+    <div class="ui-fluid">                  
+        <p:panelGrid layout="grid" columns="4"                              
+                     columnClasses="ui-grid-col-3, ui-grid-col-4, ui-grid-col-2, ui-grid-col-3"
+                     id="pnlGrFormatoConsultar" styleClass="semBorda" 
+                     rendered="#{empresaFace.registroSelecionado != null}"
+                     style="border: none !important; background-color: #dddddd">      
+
+            <p:outputLabel value="Centro de custos" for="formatoccustoConsultar" style="color: black"/>
+            <p:inputText disabled="true" id="formatoccustoConsultar" 
+                         style="color: blue; font-weight: 700; opacity: 1!important"
+                         value="#{empresaFace.registroSelecionado.formatoCentroCustos}"/>
+            <p:tooltip id="toolTipccustoConsultar" for="formatoccustoConsultar" value="Define a formatação do centro ce custo."/>
+            <p:spacer width="5"/>
+
+            <p:outputLabel value="Estrutura das contas" for="formatocontaConsultar" style="color: black"/>
+            <p:inputText disabled="true" id="formatocontaConsultar" 
+                         style="color: blue; font-weight: 700; opacity: 1!important"
+                         value="#{empresaFace.registroSelecionado.formatoConta}"/>
+            <p:tooltip id="toolTipcontaConsultar" for="formatocontaConsultar" value="Define a formatação das contas contabeis."/>
+            <p:spacer width="5"/>
+
+            <p:outputLabel value="Localização de estoque" for="formatolocalConsultar" style="color: black"/>
+            <p:inputText disabled="true" 
+                         style="color: blue; font-weight: 700; opacity: 1!important"
+                         value="#{empresaFace.registroSelecionado.formatoEndereco}" id="formatolocalConsultar"/>
+            <p:tooltip id="toolTiplocalConsultar" for="formatolocalConsultar" value="Define a formatação das localizações de estoque."/>
+            <p:spacer width="5"/>
+
+            <p:outputLabel value="Lotes de estoque" for="formatoloteestoqueConsultar" style="color: black"/>
+            <p:inputText disabled="true" 
+                         style="color: blue; font-weight: 700; opacity: 1!important"
+                         value="#{empresaFace.registroSelecionado.formatoLote}" id="formatoloteestoqueConsultar"/>
+            <p:tooltip id="toolTiploteConsultar" for="formatoloteestoqueConsultar" value="Define a formatação dos lotes de fabricação."/>
+            <p:spacer width="5"/>
+
+            <p:outputLabel value="Preenche com zeros" for="zerosConsultar" style="color: black"/>
+            <p:selectBooleanCheckbox  disabled="true" 
+                                      style="color: blue; font-weight: 700; opacity: 1!important"
+                                      value="#{empresaFace.registroSelecionado.preencheZeros}" id="zerosConsultar"/>
+            <p:tooltip id="toolTipzeroConsultar" for="zerosConsultar" value="Define se os campos do tipo caracter serão completados com 'zeros' a esquerda."/>
+            <p:spacer width="5"/>
+
+            <p:outputLabel value="Código dos produtos" for="codprodConsultar" style="color: black"/>
+            <p:inputText disabled="true" 
+                         style="color: blue; font-weight: 700; opacity: 1!important"
+                         value="#{empresaFace.registroSelecionado.formatoProduto}" id="codprodConsultar"/>
+            <p:tooltip id="toolTipcodprodConsultar" for="codprodConsultar" value="Define a formatação do código dos produtos."/>
+            <p:spacer width="5"/>
+
+            <p:outputLabel value="Participantes" for="codparticipConsultar" style="color: black"/>
+            <p:inputText disabled="true" 
+                         style="color: blue; font-weight: 700; opacity: 1!important"
+                         value="#{empresaFace.registroSelecionado.formatoParticip}" id="codparticipConsultar"/>
+            <p:tooltip id="toolTipcodparticipConsultar" for="codparticipConsultar" value="Define a formatação do código dos participantes(cliente/fornecedor)."/>
+            <p:spacer width="5"/>
+
+        </p:panelGrid>
+    </div>
+</html>

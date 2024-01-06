@@ -1,0 +1,120 @@
+<html   xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"                   
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"> 
+
+    <p:dialog widgetVar="dialogo" id="dialogo" positionType="absolute"   
+              position="top" style="max-width:800px!important" 
+              responsive="true" width="95%" height="95%"
+              modal="true" header="#{empresaFace.tituloDialogo}"
+              resizable="true">    
+    
+        <f:view contentType="text/html; charset=utf-8"> 
+            <h:form id="fm">
+                <script type="text/javascript" src="../../../../resources/js/jquery.price_format.js"></script> 
+                <script type="text/javascript" src="../../../../resources/js/locale-primefaces.js" ></script>
+                <p:toolbar style="height: 35px">
+                    <f:facet name="left">
+                        <p:commandButton title="Salvar dados do registro corrente e voltar para lista" 
+                                         action="#{empresaFace.fimIncluirAlterar(usuarioFace.loggedUser.empresa.codigo, false)}" 
+                                         style="height: 30px; width: 100px;"
+                                         styleClass="GreenButton"
+                                         value="Salvar"
+                                         icon="fa fa-check white"
+                                         update=":fmListar:dtb,messages"
+                                         alt="Salvar dados do registro corrente e voltar para lista"
+                                         process="@form"
+                                         onstart="PF('tbv').select(0);"
+                                         oncomplete="PF('tbv').select(0);"
+                                         onclick="PF('PrimeFaces.monitorDownload(startMessage, finishMessage)')"/>                                
+                        <p:spacer width="5" height="5"/>
+                        <c:if test="#{empresaFace.operacao == 'I'}">
+                            <p:commandButton title="Salvar dados do registro corrente e criar um novo registro" 
+                                             action="#{empresaFace.fimIncluirAlterar(empresaFace.loggedUser.empresa.codigo, true)}" 
+                                             style="height: 30px; width: 125px; font-size: 10px"
+                                             styleClass="GreenButton"
+                                             update=":fmListar:dtb,fm,messages"
+                                             value="Salvar e novo"
+                                             process="@form"
+                                             onstart="PF('tbv').select(0);"
+                                             oncomplete="PF('tbv').select(0);"
+                                             onclick="PF('PrimeFaces.monitorDownload(startMessage, finishMessage)')"/>                                
+                            <p:spacer width="5" height="5"/>                            
+                        </c:if>
+                        <p:commandButton style="height: 30px; width: 100px;"
+                                         styleClass="RedButton" update="@none"       
+                                         value="Voltar"
+                                         process="@this" immediate="true" 
+                                         icon="fa fa-reply Fs12 white" 
+                                         oncomplete="if (!args.validationFailed) PF('dialogo').hide()"
+                                         title="Voltar para lista" 
+                                         onstart="PF('tbv').select(0);"
+                                         onclick="PF('PrimeFaces.monitorDownload(startMessage, finishMessage)')"
+                                         alt="Voltar para lista"/>
+                        <p:spacer width="5" height="5"/>
+                        <c:if test="#{empresaFace.operacao eq 'A'}">                  
+                            <c:if test="#{empresaFace.getInativo() == 'N'}">
+                                <p:commandButton immediate="true" title="Inativar"
+                                                 style="height: 30px; width: 100px;"
+                                                 process="@form"
+                                                 value="Inativar"
+                                                 action="#{empresaFace.inativar()}" alt="Inativar" icon="fa fa-lock white"/>
+                            </c:if>
+                            <c:if test="#{empresaFace.getInativo() == 'S'}">
+                                <p:commandButton immediate="true" title="Ativar" 
+                                                 action="#{empresaFace.ativar()}" alt="Ativar" 
+                                                 style="height: 30px; width: 100px;"
+                                                 process="@form"
+                                                 value="Ativar"
+                                                 icon="fa fa-unlock white"/>
+                            </c:if>
+                            <c:if test="#{empresaFace.getInativo() == 'S'}">
+                                <h:outputText value="Registro inativado em - " style=" color: red; font-size: 12px"/>
+                                <h:outputText value="#{empresaFace.registroSelecionado.datainativo}" 
+                                              style=" color: red; font-size: 12px">
+                                    <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                                </h:outputText>
+                            </c:if>                                        
+                        </c:if>
+                        <p:growl id="messages" showDetail="true"/>  
+                    </f:facet>
+                </p:toolbar>
+                <div class="ui-fluid" onload="PF('tbv').select(0);">
+                    <p:accordionPanel id="tbv" 
+                                      widgetVar="tbv" 
+                                      activeIndex="0"
+                                style="background-color: #dddddd">                
+                        <p:tab  title="Dados gerais">
+                            <ui:include src="/views/basico/cadastros/empresa/dadosGerais.xhtml"/> 
+                        </p:tab>
+                        <p:tab title="Dados fiscais">
+                            <ui:include src="/views/basico/cadastros/empresa/dadosFiscais.xhtml"/> 
+                        </p:tab>      
+                        <p:tab title="Configurações">
+                            <ui:include src="/views/basico/cadastros/empresa/config.xhtml"/> 
+                        </p:tab>
+                        <p:tab title="Formatações">
+                            <ui:include src="/views/basico/cadastros/empresa/formato.xhtml"/> 
+                        </p:tab>
+                        <p:tab title="Logo">
+                            <ui:include src="/views/basico/cadastros/empresa/foto.xhtml"/> 
+                        </p:tab>                              
+                    </p:accordionPanel>
+                </div>
+                <h:outputText value="Campo(s) obrigatório(s)." style="color: red; font-weight: 700"/>
+                <script type="text/javascript">
+                    jQuery('.monetario').priceFormat({
+                           prefix : 'R$ '
+                        });
+                    $(document).ready(function() {
+                        widigetVar.select(0);
+                    });                        
+                    jQuery('.decimal').priceFormat({
+                           prefix : '  '
+                        });
+                </script>
+            </h:form>
+        </f:view>
+    </p:dialog>
+</html>

@@ -1,0 +1,77 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">Cadastrar Usuário</ui:define>
+
+     <ui:define name="viewname">
+        <li>Manter Usuário</li>
+        <li>/</li>
+        <li>
+            <p:link outcome="/views/basico/cadastros/usuario/cadastrarUsuario.xhtml">Cadastro Usuário</p:link>
+        </li>
+    </ui:define>
+
+    <ui:define name="content">
+	    <h:form>   
+	    	<p:growl />
+	        <div class="grid">
+	            <div class="col-12">
+	                <div class="card">
+	                    <h4>Cadastro de Usuário</h4>
+	                    
+	                    <div class="grid">
+							  <p:outputLabel for="nome" value="Nome:" class="col-fixed"  style="width:70px"/>							  
+							  <div class="col">
+								    <p:inputText id="nome" 
+								    			 value="#{usuarioController.usuario.nome}" 
+								    			 required="true" 
+								    			 requiredMessage="Informe o Nome"/>
+							  </div>
+							  <p:outputLabel for="apelido" value="Apelido:" class="col-fixed"  style="width:70px"/>						  
+							  <div class="col">
+								     <p:inputText id="apelido" 
+								    			 value="#{usuarioController.usuario.apelido}" 
+								    			 required="true" 
+								    			 requiredMessage="Informe o Apelido"/>
+							  </div>							 
+						</div>
+						
+						<div class="grid">
+							 <p:outputLabel for="email" value="Email:" class="col-fixed"  style="width:70px"/>							 
+							 <div class="col">
+								    <p:inputText id="email" 
+								    			 validator="emailValidator"
+								    			 value="#{usuarioController.usuario.email}" 
+								    			 required="true" 
+								    			 requiredMessage="Informe o Email"/>
+							  </div>
+							  <p:outputLabel for="senha" value="Senha:" class="col-fixed"  style="width:70px"/>							  
+							  <div class="col">
+								     <p:inputText id="senha" 
+								    			 value="#{usuarioController.usuario.senha}" 
+								    			 required="true" 
+								    			 requiredMessage="Informe a Senha"/>
+							  </div>
+						
+						</div>
+						
+						<div class="grid">
+							 <div class="col">
+							 	<p:commandButton value="Cadastrar" 
+							 				    icon="fa fa-save" 
+							 				    action="#{usuarioController.salvar}" 
+							 				    update="@form"/>
+							 </div>
+					    </div>
+	                 
+	                </div>
+	            </div>
+	        </div>
+	    </h:form> 
+    </ui:define>
+
+</ui:composition>

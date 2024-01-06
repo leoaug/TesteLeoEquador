@@ -1,0 +1,58 @@
+<html   xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"                   
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"> 
+    
+    <div class="ui-fluid">
+        <c:choose>
+            <c:when test="${empresaController.operacao eq 'A'}">
+                <p:focus for="nome"/>
+            </c:when>    
+            <c:otherwise>                
+                <p:focus for="codigo"/>
+            </c:otherwise>
+        </c:choose>
+        <p:panelGrid layout="grid" columns="4" 
+                     columnClasses="ui-grid-col-3, ui-grid-col-5, ui-grid-col-2, ui-grid-col-2"
+                     id="pnlGrGerais" styleClass="semBorda" 
+                     rendered="#{empresaController.registroSelecionado != null}"
+                     style="border: none !important; background-color: #dddddd">
+
+            <c:choose>
+                <c:when test="${empresaController.operacao eq 'A'}">
+                    <p:outputLabel value="Código" style="color: black" for="codigo"/>
+                    <p:inputText id="codigo" disabled="true" 
+                                 style="color: blue; font-weight: 700; opacity: 1!important"
+                                 value="#{empresaController.registroSelecionado.codigo}"/>
+                </c:when>    
+                <c:otherwise>                
+                    <p:outputLabel value="Código" style="color: red" for="codigo"/>
+                    <p:inputText id="codigo" value="#{empresaController.registroSelecionado.codigo}"/>
+                </c:otherwise>
+            </c:choose>
+            <p:spacer width="5"/><p:spacer width="5"/>
+
+            <p:outputLabel value="Nome" for="nome" style="color: red"/>
+            <p:inputText id="nome" value="#{empresaController.registroSelecionado.descricao}"/>
+            <p:spacer width="5"/><p:spacer width="5"/>
+
+            <p:outputLabel value="Nome fantasia" for="nomefantasia" style="color: red"/>
+            <p:inputText id="nomefantasia" value="#{empresaController.registroSelecionado.nomeFantasia}"/>
+            <p:spacer width="5"/><p:spacer width="5"/>                    
+
+            <p:outputLabel value="Mensagem padrão" for="msgpadrao" style="color: black"/>
+            <p:inputText id="msgpadrao" value="#{empresaController.registroSelecionado.mensagem}"/>
+            <p:spacer width="5"/><p:spacer width="5"/>
+
+            <p:outputLabel value="Tela de login" for="login" style="color: black"/>
+            <p:inputText id="login" value="#{empresaController.registroSelecionado.login}"/>
+            <p:spacer width="5"/><p:spacer width="5"/>
+
+            <p:outputLabel value="Observação" for="obs" style="color: black"/>
+            <p:inputTextarea id="obs"  cols="40" rows="5" value="#{empresaController.registroSelecionado.obs}"/>
+            <p:spacer width="5"/><p:spacer width="5"/>                    
+
+        </p:panelGrid>
+    </div>
+</html>

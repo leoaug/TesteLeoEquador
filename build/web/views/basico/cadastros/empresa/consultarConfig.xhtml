@@ -1,0 +1,22 @@
+<html   xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"                   
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"> 
+    
+    <div class="ui-fluid">                 
+        <p:panelGrid layout="grid" columns="4" 
+                     columnClasses="ui-grid-col-3, ui-grid-col-4, ui-grid-col-2, ui-grid-col-3"
+                     id="pnlGrConfigConsultar" styleClass="semBorda" 
+                     rendered="#{empresaController.registroSelecionado != null}"
+                     style="border: none !important; background-color: #dddddd">      
+
+            <p:outputLabel value="Usa centro de custo" for="ccustoConsultar" style="color: black"/>
+            <p:selectBooleanCheckbox disabled="true" id="ccustoConsultar" 
+                                     style="color: blue; font-weight: 700; opacity: 1!important"
+                                     value="#{empresaController.registroSelecionado.usaCentroCustos}"/>
+            <p:spacer width="5"/><p:spacer width="5"/>                    
+
+        </p:panelGrid>
+    </div>
+</html>

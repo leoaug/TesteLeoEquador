@@ -1,0 +1,30 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+                
+    	<p:ajaxStatus onstart="PF('statusDialogTemplate').show();" onsuccess="PF('statusDialogTemplate').hide();"/>
+					        					    	
+		<p:dialog modal="true" 
+				  resizable="false"
+    			   appendTo="@(body)" 
+    			   showHeader="false" 
+    			   widgetVar="statusDialogTemplate"  
+    			   draggable="false" 
+    			   closable="false" 
+    			   width="125">
+   			<p:panelGrid styleClass="ui-noborder">
+   				<p:row>
+   			 		<p:column>
+   			 			<h:outputText value="Carregando.." />
+   			 			<br/>
+   			 			<p:graphicImage name="images/ajax-loader2.gif" library="ecuador-layout"/>
+   			 		</p:column>	
+   				 </p:row>	  			
+   			</p:panelGrid>
+		</p:dialog>
+    
+                
+</ui:composition>

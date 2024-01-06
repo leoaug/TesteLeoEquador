@@ -1,0 +1,56 @@
+<ui:composition 
+    xmlns:p="http://primefaces.org/ui" 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:ui="http://java.sun.com/jsf/facelets">
+    
+    <h:form>    
+        <div id="layout-header" class="Unselectable fontRegular">
+            <table>
+                <tr>
+                    <td>
+<!-- INATIVO           
+                        <p:graphicImage styleClass="Fleft" 
+                           value="#{loginFace.usuarioLogado.empresa.logotop}"
+                           cache="false"
+                           width="90" height="45"/>  
+-->
+<!--
+                        <h:form enctype="multipart/form-data">
+                            <p:graphicImage styleClass="Fleft" value="#{loginFace.logo}" cache="false" width="90px" height="45px" />
+                        </h:form>   
+-->
+                    </td>
+                    <td>
+                        <span class="Fs19 FontTitilliumSemiBoldItalic"><span class="softblue">OnSys ERP Cloud</span></span>
+                    </td>
+                </tr>            
+            </table>            
+            <ul id="sm-topmenu" class="layout-header-widgets white Fs14">
+                <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-user-male"></i>
+                        <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+                            <li class="Animated05"><a class="white Unselectable"><i class="icon-user-male Fs26 OvHidden"></i><span class="Fs18">#{usuarioFace.loggedUser.apelido}<br/><span class="Fs10">Last Login - 18.08.2014</span></span></a></li>
+                        </ul>
+                </li>
+                <li class="Fleft BordRadHalf TexAlCenter"><i class="icon-power"></i>
+                    <ul class="layout-header-widgets-submenu BordRad5 shadows white Animated05">
+                        <li class="Animated05">
+                            <a class="white Unselectable">
+                                <h:commandLink  action="#{usuarioFace.doLogOut()}" 
+                                                value="Log Out" title="Log Out"
+                                                style="color: #C1E1F4;" class="white Fs12 FontBold"/>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <!-- NEVER REMOVE FOLLOWING 'UL' TAG ! BECAUSE THIS CONTAINS RESPONSIVE MODE HEADER MENU OPEN-CLOSE BUTTON -->
+            <ul id="sm-mobiletopmenu" class="layout-header-widgets white Fs14">
+                    <li class="Fleft BordRadHalf TexAlCenter Animated05 DisplayOnResponsive"><i class="icon-th-1"></i></li>
+            </ul>
+            <!-- ****** -->
+        </div>
+    </h:form>
+    
+</ui:composition>

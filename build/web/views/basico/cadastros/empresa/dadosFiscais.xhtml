@@ -1,0 +1,28 @@
+<html   xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"                   
+        xmlns:f="http://java.sun.com/jsf/core"
+        xmlns:h="http://java.sun.com/jsf/html"> 
+    
+    <div class="ui-fluid">
+        <p:panelGrid layout="grid" columns="4" 
+                     columnClasses="ui-grid-col-3, ui-grid-col-3, ui-grid-col-3, ui-grid-col-3"
+                     id="pnlGrFiscal" styleClass="semBorda" 
+                     rendered="#{empresaController.registroSelecionado != null}"
+                     style="border: none !important; background-color: #dddddd">        
+
+            <p:outputLabel value="Regime tributário" for="regime" style="color: black"/>
+            <p:selectOneMenu id="regime"  value="#{empresaController.registroSelecionado.tpRegimeTributario}">
+                <f:selectItem itemValue="Simples"   itemLabel="Simples"/>                                                 
+                <f:selectItem itemValue="Presumido" itemLabel="Lucro presumido"/>
+                <f:selectItem itemValue="Real"      itemLabel="Lucro real"/>
+            </p:selectOneMenu>
+
+            <p:outputLabel value="Aliq. simples nacional" for="aliq" style="color: black"/>
+            <p:inputText id="aliq"  value="#{empresaController.registroSelecionado.percSimples}" styleClass="decimal" size="6" style="text-align: right">
+                <f:convertNumber minFractionDigits="2" locale="pt_BR"/> 
+            </p:inputText>
+
+        </p:panelGrid>
+    </div>
+</html>

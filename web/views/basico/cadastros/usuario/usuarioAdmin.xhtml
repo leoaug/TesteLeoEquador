@@ -1,0 +1,27 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">Usuário Admin</ui:define>
+
+     <ui:define name="viewname">
+        <li>Usuário Admin</li>
+        <li>/</li>
+        <li>
+            <p:link outcome="/views/basico/cadastros/usuario/usuarioAdmin.xhtml">Usuário Admin</p:link>
+        </li>
+     </ui:define>
+
+    <ui:define name="content">
+    	<p:dataTable var="usuario" value="#{usuarioAdminController.usuarios}">
+    		<p:column headerText="Email">
+    			<h:outputText value="#{usuario.email}"/>
+    		</p:column>
+    	</p:dataTable>
+    
+    </ui:define>
+    
+   </ui:composition>

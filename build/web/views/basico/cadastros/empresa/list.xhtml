@@ -1,0 +1,181 @@
+<html xmlns:c="http://java.sun.com/jsp/jstl/core">
+    <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                    xmlns:p="http://primefaces.org/ui"
+                    template="/WEB-INF/template.xhtml"
+                    xmlns:f="http://java.sun.com/jsf/core"
+                    xmlns:h="http://java.sun.com/jsf/html">
+        <ui:define name="conteudo">    
+            <f:view contentType="text/html; charset=utf-8">
+                <h:head>  
+                    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>  
+                </h:head>
+                <p:ajaxStatus onstart="PF('statusDialog').show();" onsuccess="PF('statusDialog').hide();" widgetVar="statusDialog" />
+                <p:dialog modal="true" widgetVar="statusDialog" header="Processando..." draggable="false" closable="false" resizable="false">                               
+                    <p:graphicImage value="#{pageContext.servletContext.contextPath}/resources/imagens/onsys/bar180.gif" /> 
+                </p:dialog>         
+                <script type="text/javascript">
+                    function startMessage() {
+                         statusDialog.show();
+                    }
+                    function finishMessage() {
+                        statusDialog.hide();
+                    }
+                </script>
+                <h:form id="fmListar">
+                    <p:panel>
+                        <p:toolbar style="height: 35px" id="toolbar">
+                            <f:facet name="left">
+                                <c:if test="#{validaAcesso.validaAcesso('/views/basico/cadastros/empresa/list.faces', 'E')}">
+                                    <p:commandButton style="text-align: center; height: 30px; width: 120px;"
+                                                     update="dialogo,fm,messages"
+                                                     value="Alterar"
+                                                     styleClass="BrownButton"
+                                                     title="Selecione um registro na lista abaixo, para utilizar a função de alteração."
+                                                     action="#{empresaController.alterar()}" 
+                                                     id="bt_editar" 
+                                                     icon="fa fa-pencil Fs16 white" 
+                                                     ajax="true" 
+                                                     onclick="PF('PrimeFaces.monitorDownload(startMessage, finishMessage)')">
+                                    </p:commandButton>
+                                    <p:spacer width="3" height="3"/>  
+                                </c:if>                          
+                                <c:if test="#{validaAcesso.validaAcesso('/views/basico/cadastros/empresa/list.faces', 'C')}">
+                                    <p:commandButton style="text-align: center; height: 30px; width: 120px;" 
+                                                     update="dialogoConsultar,fmConsultar,messages"
+                                                     styleClass="CyanButton"
+                                                     value="Consultar"
+                                                     title="Selecione um registro na lista abaixo, para utilizar a função de consulta" 
+                                                     action="#{empresaController.consultar()}" icon="fa fa-eye Fs16 white"
+                                                     ajax="true" onclick="PF('PrimeFaces.monitorDownload(startMessage, finishMessage)')">
+                                    </p:commandButton>
+                                    <span class="ui-separator">
+                                        <span class="fa fa-ellipsis-v leaden"/>
+                                    </span>
+                                </c:if>                     
+                                <p:menuButton style="text-align: center; height: 30px; width: 145px;" value="Mais opções">  
+                                    <c:if test="#{validaAcesso.validaAcesso('/views/basico/cadastros/empresa/list.faces', 'R')}">
+                                        <p:menuitem value="Deletar" action="#{empresaController.remover()}" 
+                                                    update="dtb,messages"
+                                                    icon="fa fa-trash">
+                                            <p:confirm header="Confirmação"
+                                                message="Confirma a eliminação ?"
+                                                icon="ui-icon-alert" />
+                                        </p:menuitem>
+                                    </c:if>
+                                    <p:menuitem value="Relatório" icon="fa fa-print"
+                                                action="#{empresaReportFace.doFilter()}" 
+                                                ajax="true" onclick="PF('PrimeFaces.monitorDownload(startMessage, finishMessage)')"/>                                                                                
+                                    <c:if test="#{!favoritosFace.validaExistente()}">
+                                        <p:menuitem value="Adicionar aos favoritos" icon="fa fa-star-o" 
+                                                    actionListener="#{favoritosFace.criaFavorito(usuarioFace.loggedUser.empresa.codigo)}"/>
+                                    </c:if>
+                                    <c:if test="#{favoritosFace.validaExistente()}">
+                                        <p:menuitem value="Remover dos favoritos" icon="fa fa-star" 
+                                                    actionListener="#{favoritosFace.deletaFavorito()}"/>
+                                    </c:if>                                    
+                                    <p:menuitem value="Ajuda" icon="fa fa-question"/>
+                                </p:menuButton>                                                    
+                                <p:spacer width="3" height="3"/>
+                                <p:commandButton id="limparFiltro"
+                                                 title="Atualizar lista e limpar filtros" 
+                                                 style="height: 30px; width: 30px;"
+                                                 actionListener="#{empresaController.limparFiltros}"
+                                                 icon="fa fa-flash Fs14 white"
+                                                 update="dtb,toolbar">
+                                    <p:resetInput target="dtb"/>
+                                </p:commandButton>                                
+                                <p:spacer width="3" height="3"/>
+                                <p:growl id="messages" showDetail="true"/>  
+                            </f:facet>
+                            <f:facet name="right">
+
+                                <p:outputLabel value=" Empresa " for="empresa" style="color: #000000; font-weight: 700" styleClass="Fs16"/> 
+                                <p:spacer width="3" height="3"/>
+                                <p:selectOneMenu id="empresa" value="#{usuarioEmpresaFace.empresaSessao}" immediate="true"
+                                                 style="width: 180px" var="p">
+                                    <p:column>#{p.nomeFantasia}</p:column>
+                                    <f:selectItems var="itemSel" itemLabel="#{itemSel.nomeFantasia}"  itemValue="#{itemSel}" 
+                                                   value="#{usuarioEmpresaFace.getListaDeEmpresasDoUsuario(usuarioFace.loggedUser)}"/>
+                                    <f:converter converterId="empresaConverter"/>
+                                    <p:ajax process="empresa"/>
+                                    <p:ajax event="change" update="@this,menuform"/>
+                                    <p:ajax event="change" onstart="PF('tabela').clearFilters()" update="@form,messages,dtb,empresa" listener="#{usuarioEmpresaFace.alterarEmpresa()}"/>
+                                </p:selectOneMenu>
+
+                            </f:facet>                            
+                        </p:toolbar>                             
+                        <p:dataTable id="dtb" var="item" value="#{empresaController.lazy}" 
+                                     rowKey="#{item.id}"
+                                     filterDelay="1000"
+                                     selection="#{empresaController.registroSelecionado}" selectionMode="single"
+                                     paginator="true" rows="10"  lazy="true" paginatorPosition="top" 
+                                     widgetVar="tabela"
+                                     rowStyleClass="#{empty rowIx or rowIx mod 2 ne 0 ? 'even-row' : 'odd-row'}"
+                                     first="0"
+                                     emptyMessage="Não há registros a exibir"                                 
+                                     rowIndexVar="rowIx" reflow="true">
+
+                            <p:ajax event="filter" update="dtb"/>
+                            <p:ajax event="page" listener="#{empresaController.datatablePagina}"/>
+                            
+                            <f:facet name="header">                                                     
+                                <h:outputText value="BAS0119 - Empresa" styleClass="Fs14"/>
+                                <p:spacer width="20" height="5"/>
+                                <h:commandLink>
+                                    <p:graphicImage title="Gera planilha" value="#{pageContext.servletContext.contextPath}/resources/imagens/onsys/excel.png" width="20"/>
+                                    <p:dataExporter type="xls" target="dtb" 
+                                                    postProcessor="#{postProcessXLS.postProcessXLS}"
+                                                    fileName="BAS0119"/>                                    
+                                </h:commandLink>
+                            </f:facet>
+                            
+                            <p:column style="width:16px; height: 25px; border-style: solid; border-color: #0000FF;" exportable="false">
+                                <p:rowToggler />
+                            </p:column>   
+                            <p:column id="id" visible="false" exportable="false">                                    
+                                <h:outputText value="#{item.id}"/>
+                            </p:column>                             
+                            <p:column sortBy="#{item.codigo}" 
+                                      headerText="Código"
+                                      style="color: #0000FF; height: 25px; width: 160px; border-style: solid; border-color: #0000FF;">
+                                <h:outputText value="#{item.codigo}" 
+                                              style="color: black"
+                                              styleClass="Fs12"/>
+                            </p:column>                              
+                            <p:column sortBy="#{item.nomeFantasia}" 
+                                      headerText="Nome fantasia" 
+                                      style="color: #0000FF; height: 25px; border-style: solid; border-color: #0000FF;">
+                                <h:outputText value="#{item.nomeFantasia}" 
+                                              style="color: black"
+                                              styleClass="Fs12"/>
+                            </p:column>
+                            <p:rowExpansion>
+                                <p:panelGrid columns="2" 
+                                             layout="grid"
+                                             style="background-color: #F2E6E6"
+                                             columnClasses="ui-grid-col-2, ui-grid-col-10">
+
+                                    <h:outputText value="Registro inativado em - " 
+                                                  style="color: black" styleClass="Fs12"/>
+                                    <h:outputText value="#{item.datainativo}" 
+                                                  style="color: black" styleClass="Fs12">
+                                        <f:convertDateTime pattern="dd/MM/yyyy" timeZone="America/Sao_Paulo"/>
+                                    </h:outputText>
+
+                                 </p:panelGrid>
+                            </p:rowExpansion>
+                        </p:dataTable>
+                    </p:panel>
+                </h:form>
+                <ui:include src="/views/basico/cadastros/empresa/incluirAlterar.xhtml"/>
+                <ui:include src="/views/basico/cadastros/empresa/consultar.xhtml"/>
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                    <p:commandButton value="Sim" type="button"
+                        styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                    <p:commandButton value="Não" type="button"
+                        styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                </p:confirmDialog>                       
+            </f:view>
+        </ui:define>
+    </ui:composition>        
+</html>

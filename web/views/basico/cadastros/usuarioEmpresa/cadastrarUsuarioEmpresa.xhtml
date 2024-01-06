@@ -1,0 +1,89 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+                
+    <ui:define name="title">Cadastrar Empresa</ui:define>
+
+     <ui:define name="viewname">
+        <li>Manter Usuário Empresa</li>
+        <li>/</li>
+        <li>
+            <p:link outcome="/paginas/usuarioEmpresa/cadastrarUsuarioEmpresa.xhtml">Cadastro de Usuario com Empresa</p:link>
+        </li>
+    </ui:define>
+
+    <ui:define name="content">
+	    <h:form>   
+	    	<p:growl />
+	        <div class="grid">
+	            <div class="col-12">
+	                <div class="card">
+	                    <h4>Cadastro de Usuario com Empresa</h4>
+	                    
+	                    <div class="grid">
+							  <p:outputLabel for="usuarioSelectOnemenu" value="Usuário" class="col-fixed"  style="width:180px"/>							  					  
+							  <div class="col">
+									<p:selectOneMenu id="usuarioSelectOnemenu" required="true" requiredMessage="Informe o Usuário"
+													 value="#{usuarioEmpresaController.usuarioEmpresa.usuario}" 
+													 converter="bbtsConverter">
+										<f:selectItem itemLabel="Selecione"/>
+										<f:selectItems var="usuario" 
+													   itemLabel="#{usuario.nome}" 
+													   itemValue="#{usuario}"
+													   value="#{usuarioEmpresaController.usuarios}" />
+									</p:selectOneMenu>
+							  </div>
+						</div>
+						<div class="grid">
+							  <p:outputLabel for="empresas" value="Empresas" class="col-fixed"  style="width:80px"/>							  
+							  <div class="col">							
+								     <p:pickList id="empresas" 
+								     			required="true" 
+								     			requiredMessage="Informe pelo menos uma Empresa"
+								     			value="#{usuarioEmpresaController.empresas}" 
+								     			var="empresa"
+							                    itemValue="#{empresa}" 
+							                    itemLabel="#{empresa.descricao}" 
+							                    showSourceControls="true"
+							                    showTargetControls="true" 
+							                    showCheckbox="true"
+							                    showSourceFilter="true" 
+							                    showTargetFilter="true"
+							                    filterMatchMode="contains" 
+							                    converter="bbtsConverter" 
+							                    responsive="true">
+
+									            <f:facet name="sourceCaption">Disponível</f:facet>
+									            <f:facet name="targetCaption">Adicionado</f:facet>
+							
+
+									            <p:column style="width:94%">
+									                <div class="flex align-items-center">
+									                    <h:outputText value="#{empresa.descricao}"/>
+									                </div>
+							            		</p:column>
+       		 						</p:pickList>
+							  </div>							 
+						</div>
+						
+						
+						
+						<div class="grid">
+							 <div class="col-4">
+							 	<p:commandButton value="Cadastrar" 
+							 				    icon="fa fa-save" 
+							 				    action="#{usuarioEmpresaController.salvar}" 
+							 				    update="@form"/>
+							 </div>
+					    </div>
+	                 
+	                </div>
+	            </div>
+	        </div>
+	    </h:form> 
+    </ui:define>
+
+</ui:composition>
