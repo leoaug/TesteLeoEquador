@@ -5,7 +5,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 
-	<p:dialog id="idDialogAdminUsuarioEditar" header="Editar Usuario" width="60%" resizable="false" responsive="true"
+	<p:dialog id="idDialogAdminUsuarioEditar" header="#{usuarioAdminController.dto.label} Usuário" width="60%" resizable="false" responsive="true"
 		widgetVar="widgetVarDialogAdminUsuario">
 		<h:form id="idDialogAdminUsuario">
 			<div class="card">
@@ -58,13 +58,13 @@
 					
 				
 				<div class="grid">
-					<div class="col-6">
-						<p:commandButton value="Alterar" 
-										 action="#{usuarioAdminController.alterar}" 
+					<div class="col-4">
+						<p:commandButton value="#{usuarioAdminController.dto.label}" 
+										 action="#{usuarioAdminController.salvarOuAlterar}" 
 										 update="idDialogAdminUsuario,idFormUsuarioAdmin"/>
 					</div>
 					
-					<div class="col-6">
+					<div class="col-4">
 						<p:commandButton value="Fechar" immediate="true" global="false"
 							onclick="PF('widgetVarDialogAdminUsuario').hide()"/>
 					</div>

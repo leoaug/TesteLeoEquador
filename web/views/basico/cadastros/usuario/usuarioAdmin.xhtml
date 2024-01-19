@@ -18,25 +18,58 @@
     <ui:define name="content">
 	    <h:form id="idFormUsuarioAdmin" prependId="false">
 	    	<p:growl id="idGrowlUsuarioAdmin" />
+	    	<p:commandButton value="Novo" 
+	    					 icon="pi pi-user-plus" 
+	    					 alt="Novo Usuário" 
+	    					 update="idDialogAdminUsuarioEditar"
+	    					 action="#{usuarioAdminController.preSalvarUsuario}" 
+	    					 oncomplete="PF('widgetVarDialogAdminUsuario').show()" />
 	    	<p:dataTable var="usuario" 
 	    				 value="#{usuarioAdminController.usuarios}">
 	    		<p:column headerText="Email">
 	    			<h:outputText value="#{usuario.email}"/>
 	    		</p:column>
 	    		
+	    		<p:column headerText="Nome">
+	    			<h:outputText value="#{usuario.nome}"/>
+	    		</p:column>
+	    		
 	    		<p:column headerText="Apelido">
 	    			<h:outputText value="#{usuario.apelido}"/>
 	    		</p:column>
 	    		
-	    		<p:column headerText="Editar" style="width:5%; text-align: center !important;">
-	    			<p:commandButton  icon="pi pi-pencil" styleClass="rounded-button"
-	    							  update="idDialogAdminUsuarioEditar"
-	    							  action="#{usuarioAdminController.preEditarUsuario(usuario)}" 
-	    							  oncomplete="PF('widgetVarDialogAdminUsuario').show()">
+	    		<p:column headerText="Tipo De Usuário">
+	    			<h:outputText value="#{usuario.tipoUsuarioEnum}"/>
+	    		</p:column>
+	    		
+	    		<p:column headerText="Ações" style="text-align: center !important;">
+	    			<p:commandButton icon="pi pi-pencil" styleClass="rounded-button" title="Editar"
+	    							 update="idDialogAdminUsuarioEditar"
+	    							 action="#{usuarioAdminController.preEditarUsuario(usuario)}" 
+	    							 oncomplete="PF('widgetVarDialogAdminUsuario').show()">
 	    			</p:commandButton>
+	    			<p:spacer width="5"/>
+	    			<p:commandButton icon="pi pi-minus-circle" 
+	    							styleClass="rounded-button ui-button-danger" 
+	    							title="Excluir" 
+	    							action="#{usuarioAdminController.preExcluirUsuario(usuario)}"
+	    							oncomplete="PF('confirmDialogSalvarUsuario').show()" />
+	    		
+	    		
 	    		</p:column>
 	    		
 	    	</p:dataTable>
+	    	
+	    						 
+	    	<p:confirmDialog widgetVar="confirmDialogSalvarUsuario" header="Confirmação"
+                         message="Deseja Excluir o Usuário??"
+                         icon="pi pi-exclamation-triangle">
+				            <p:commandButton value="Sim" 
+				            				 update="idFormUsuarioAdmin,idDialogAdminUsuarioEditar" oncomplete="PF('confirmDialogSalvarUsuario').hide()"
+				            				 action="#{usuarioAdminController.excluirUsuario}" />
+				            <p:commandButton value="Não" onclick="PF('confirmDialogSalvarUsuario').hide()" />
+        	</p:confirmDialog>
+	    	
     	</h:form>	
      	<ui:include src="/views/basico/cadastros/dialog/usuario/dialogAdminUsuario.xhtml" />
     

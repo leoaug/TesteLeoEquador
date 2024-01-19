@@ -46,21 +46,44 @@ public class UsuarioAdminController  implements Serializable {
 	
 	
 	@Transactional
-	public void alterar() throws Exception {
-				
-		usuarioModel.alterar(getUsuario());
-			
+	public void salvarOuAlterar() throws Exception {
+
+
+		setUsuario(getUsuario().getId() == null ? usuarioModel.salvar(getUsuario()) : usuarioModel.alterar(getUsuario()));
+
 		onInit();
-			
+
 		PrimeFaces.current().executeScript("PF('widgetVarDialogAdminUsuario').hide()");
-		
+
 		FacesContext.getCurrentInstance().
-				addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário alterado.", ""));
+		addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário alterado.", ""));
+
+	}
+	@Transactional
+	public void excluirUsuario() throws Exception {
+		
+		usuarioModel.excluir(usuarioModel.getEntidade(getUsuario().getId()));
+		
+		onInit();
+
+
+		FacesContext.getCurrentInstance().
+		addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário excluído.", ""));
+		
+	}
 	
+	public void preExcluirUsuario(Usuario usuario) {
+		setUsuario(usuario);
 	}
 
 	public void preEditarUsuario(Usuario usuario) throws Exception {
+		getDto().setLabel("Alterar");
 		setUsuario(usuarioModel.getEntidade(usuario.getId()));
+	}
+	
+	public void preSalvarUsuario() throws Exception {
+		getDto().setLabel("Salvar");
+		setUsuario(new Usuario());
 	}
 	
 	public Usuario getUsuario() {
@@ -70,8 +93,6 @@ public class UsuarioAdminController  implements Serializable {
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
-	
-	
 
 
 	public List<Usuario> getUsuarios() {
