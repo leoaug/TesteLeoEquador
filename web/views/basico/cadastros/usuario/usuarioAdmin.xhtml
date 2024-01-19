@@ -16,11 +16,29 @@
      </ui:define>
 
     <ui:define name="content">
-    	<p:dataTable var="usuario" value="#{usuarioAdminController.usuarios}">
-    		<p:column headerText="Email">
-    			<h:outputText value="#{usuario.email}"/>
-    		</p:column>
-    	</p:dataTable>
+	    <h:form id="idFormUsuarioAdmin" prependId="false">
+	    	
+	    	<p:dataTable var="usuario" 
+	    				 value="#{usuarioAdminController.usuarios}">
+	    		<p:column headerText="Email">
+	    			<h:outputText value="#{usuario.email}"/>
+	    		</p:column>
+	    		
+	    		<p:column headerText="Apelido">
+	    			<h:outputText value="#{usuario.apelido}"/>
+	    		</p:column>
+	    		
+	    		<p:column headerText="Editar" style="width:5%; text-align: center !important;">
+	    			<p:commandButton  icon="pi pi-pencil" styleClass="rounded-button"
+	    							  update="idDialogAdminUsuarioEditar"
+	    							  action="#{usuarioAdminController.preEditarUsuario(usuario)}" 
+	    							  oncomplete="PF('widgetVarDialogAdminUsuario').show()">
+	    			</p:commandButton>
+	    		</p:column>
+	    		
+	    	</p:dataTable>
+    	</h:form>	
+     	<ui:include src="/views/basico/cadastros/dialog/usuario/dialogAdminUsuario.xhtml" />
     
     </ui:define>
     

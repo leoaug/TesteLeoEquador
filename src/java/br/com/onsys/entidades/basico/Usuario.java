@@ -5,12 +5,16 @@ import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
+import br.com.onsys.constants.TipoUsuarioEnum;
 
 @Entity
 @Table(name = "usuario")
@@ -35,6 +39,10 @@ public class Usuario implements Serializable{
 	
 	@Column(nullable = false,length = 60)
 	private String email;
+	
+	@Enumerated(EnumType.ORDINAL)
+	@Column(name = "tipo_usuario")
+	private TipoUsuarioEnum tipoUsuarioEnum;
 	
     @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY)
     private List <UsuarioEmpresa> usuariosEmpresas;
@@ -80,6 +88,13 @@ public class Usuario implements Serializable{
 	}
 	
 	
+	public TipoUsuarioEnum getTipoUsuarioEnum() {
+		return tipoUsuarioEnum;
+	}
+
+	public void setTipoUsuarioEnum(TipoUsuarioEnum tipoUsuarioEnum) {
+		this.tipoUsuarioEnum = tipoUsuarioEnum;
+	}
 
 	public List<UsuarioEmpresa> getUsuariosEmpresas() {
 		return usuariosEmpresas;
@@ -89,36 +104,6 @@ public class Usuario implements Serializable{
 		this.usuariosEmpresas = usuariosEmpresas;
 	}
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		return result;
-	}
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		if (id == null) {
-			if (other.id != null)
-				return false;
-		} else if (!id.equals(other.id))
-			return false;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		return true;
-	}
-	
 	
 }

@@ -44,6 +44,7 @@ public class UsuarioController implements Serializable {
 			addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário cadastrado.", ""));
 	}
 
+
 	public Usuario getUsuario() {
 		return usuario;
 	}

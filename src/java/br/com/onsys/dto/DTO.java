@@ -7,6 +7,8 @@ import java.util.List;
 import org.primefaces.model.ScheduleEvent;
 import org.primefaces.model.ScheduleModel;
 
+import br.com.onsys.constants.TipoUsuarioEnum;
+
 
 
 
@@ -64,6 +66,10 @@ public class DTO <T extends Serializable> implements Serializable {
 	private String label;
 	
 	private String stringJson;
+	
+	public TipoUsuarioEnum[] getListaTipoUsuarioEnum() {
+        return TipoUsuarioEnum.values();
+    }
 	
 	public T getEntidade() {
 		return entidade;
