@@ -17,7 +17,7 @@
 
     <ui:define name="content">
 	    <h:form id="idFormUsuarioAdmin" prependId="false">
-	    	
+	    	<p:growl id="idGrowlUsuarioAdmin" />
 	    	<p:dataTable var="usuario" 
 	    				 value="#{usuarioAdminController.usuarios}">
 	    		<p:column headerText="Email">

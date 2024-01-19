@@ -11,6 +11,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.transaction.Transactional;
 
+import org.primefaces.PrimeFaces;
+
 import br.com.onsys.constants.TipoUsuarioEnum;
 import br.com.onsys.dto.DTO;
 import br.com.onsys.entidades.basico.Usuario;
@@ -44,21 +46,16 @@ public class UsuarioAdminController  implements Serializable {
 	
 	
 	@Transactional
-	public void alerar() throws Exception {
+	public void alterar() throws Exception {
+				
+		usuarioModel.alterar(getUsuario());
 			
-		if(getUsuario().getTipoUsuarioEnum() == null) {
+		onInit();
 			
-			FacesContext.getCurrentInstance().
-				addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Informe o tipo de usuário.", ""));
-		} else {
-			usuarioModel.alterar(getUsuario());
-			
-			onInit();
-			
-			FacesContext.getCurrentInstance().
-				addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário alterado.", ""));
-		}
+		PrimeFaces.current().executeScript("PF('widgetVarDialogAdminUsuario').hide()");
 		
+		FacesContext.getCurrentInstance().
+				addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário alterado.", ""));
 	
 	}
 
