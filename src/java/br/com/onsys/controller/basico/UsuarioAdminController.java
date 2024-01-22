@@ -53,6 +53,8 @@ public class UsuarioAdminController  implements Serializable {
 
 		onInit();
 
+		PrimeFaces.current().ajax().update("idFormUsuarioAdmin");
+		
 		PrimeFaces.current().executeScript("PF('widgetVarDialogAdminUsuario').hide()");
 
 		FacesContext.getCurrentInstance().

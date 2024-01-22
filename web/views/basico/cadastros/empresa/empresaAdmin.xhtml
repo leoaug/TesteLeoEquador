@@ -16,7 +16,55 @@
      </ui:define>
 
     <ui:define name="content">
+	    <h:form id="idFormEmpresaAdmin" prependId="false">
+	    	<p:growl id="idGrowlEmpresaAdmin" />
+	    	<p:commandButton value="Novo" 
+	    					 icon="pi pi-user-plus" 
+	    					 alt="Novo Empresa" 
+	    					 update="idDialogAdminEmpresaEditar"
+	    					 action="#{empresaAdminController.preSalvarEmpresa}" 
+	    					 oncomplete="PF('widgetVarDialogAdminEmpresa').show()" />
+	    	<p:dataTable var="empresa" 
+	    				 value="#{empresaAdminController.empresas}">
+	    		<p:column headerText="Código">
+	    			<h:outputText value="#{empresa.codigo}"/>
+	    		</p:column>
+	    		
+	    		<p:column headerText="Nome Fantasia">
+	    			<h:outputText value="#{empresa.nomeFantasia}"/>
+	    		</p:column>
+	    		
+	    		<p:column headerText="Ações" style="text-align: center !important;">
+	    			<p:commandButton icon="pi pi-pencil" styleClass="rounded-button" title="Editar"
+	    							 update="idDialogAdminEmpresaEditar"
+	    							 action="#{empresaAdminController.preEditarEmpresa(empresa)}" 
+	    							 oncomplete="PF('widgetVarDialogAdminEmpresa').show()">
+	    			</p:commandButton>
+	    			<p:spacer width="5"/>
+	    			<p:commandButton icon="pi pi-minus-circle" 
+	    							styleClass="rounded-button ui-button-danger" 
+	    							title="Excluir" 
+	    							action="#{empresaAdminController.preExcluirEmpresa(empresa)}"
+	    							oncomplete="PF('confirmDialogSalvarEmpresa').show()" />
+	    		
+	    		
+	    		</p:column>
+	    		
+	    	</p:dataTable>
+	    	
+	    						 
+	    	<p:confirmDialog widgetVar="confirmDialogSalvarEmpresa" header="Confirmação"
+                         message="Deseja Excluir o Empresa?"
+                         icon="pi pi-exclamation-triangle">
+				            <p:commandButton value="Sim" 
+				            				 update="idFormEmpresaAdmin,idDialogAdminEmpresaEditar" oncomplete="PF('confirmDialogSalvarEmpresa').hide()"
+				            				 action="#{empresaAdminController.excluirEmpresa}" />
+				            <p:commandButton value="Não" onclick="PF('confirmDialogSalvarEmpresa').hide()" />
+        	</p:confirmDialog>
+	    	
+    	</h:form>	
+     	<ui:include src="/views/basico/cadastros/dialog/empresa/dialogAdminEmpresa.xhtml" />
     
     </ui:define>
     
-</ui:composition>
+   </ui:composition>

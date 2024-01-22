@@ -1,0 +1,47 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+
+
+	<p:dialog id="idDialogAdminEmpresaEditar" header="#{empresaAdminController.dto.label} Empresa" width="60%" resizable="false" responsive="true"
+		widgetVar="widgetVarDialogAdminEmpresa">
+		<h:form id="idDialogAdminEmpresa">
+			<div class="card">
+				<p:accordionPanel>				
+					<p:tab title="Dados Gerais">
+						<div class="grid">						
+							<div class="col-6">
+								<p:outputLabel for="codigo" value="Código: " style="padding: 18px 15px 10px 10px;"/>
+								<p:inputText id="codigo" required="true" requiredMessage="Informe o Nome" value="#{empresaAdminController.empresa.codigo}" />
+								<p:message for="codigo" />
+							</div>
+							<div class="col-6">
+								<p:outputLabel for="nomeFantasia" value="Nome Fantasia: " style="padding: 18px 15px 10px 10px;"/>
+								<p:inputText id="nomeFantasia" required="true" requiredMessage="Informe o Nome Fantasia" value="#{empresaAdminController.empresa.nomeFantasia}" />
+								<p:message for="nomeFantasia" />
+							</div>
+						</div>
+					</p:tab>
+				</p:accordionPanel>
+				
+				<div class="grid">
+					<div class="col-4">
+						<p:commandButton value="#{empresaAdminController.dto.label}" 
+										 action="#{empresaAdminController.salvarOuAlterar}" 
+										 update="idDialogAdminEmpresa"/>
+					</div>
+					
+					<div class="col-4">
+						<p:commandButton value="Fechar" immediate="true" global="false"
+							onclick="PF('widgetVarDialogAdminEmpresa').hide()"/>
+					</div>
+				</div>
+			</div>
+		</h:form>
+		
+	</p:dialog>
+
+
+</ui:composition>
