@@ -125,8 +125,8 @@ public class UsuarioEmpresaAdminController  implements Serializable {
 		
 	}
 	
-	public void preExcluirUsuarioEmpresa(Usuario usuario) {
-		getUsuarioEmpresa().setUsuario(usuario);
+	public void preExcluirUsuarioEmpresa(Usuario usuario) throws Exception {
+		getUsuarioEmpresa().setUsuario(usuarioModel.getEntidade(usuario.getId()));
 	}
 
 	public void preEditarUsuarioEmpresa(Usuario usuario) throws Exception {
