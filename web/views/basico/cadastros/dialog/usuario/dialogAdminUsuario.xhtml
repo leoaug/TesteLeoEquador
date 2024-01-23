@@ -8,9 +8,7 @@
 	<p:dialog id="idDialogAdminUsuarioEditar" header="#{usuarioAdminController.dto.label} Usuário" width="60%" resizable="false" responsive="true"
 		widgetVar="widgetVarDialogAdminUsuario">
 		<h:form id="idDialogAdminUsuario">
-			<div class="card">
-				<h4>Dados do Usuário</h4>
-	
+			<div class="card">	
 				<div class="grid">
 					<div class="col-5">
 						 <p:outputLabel for="email" value="Email:"  style="padding: 18px 21px 10px 10px;"/>
@@ -58,13 +56,13 @@
 					
 				
 				<div class="grid">
-					<div class="col-4">
+					<div class="col-2">
 						<p:commandButton value="#{usuarioAdminController.dto.label}" 
 										 action="#{usuarioAdminController.salvarOuAlterar}" 
 										 update="idDialogAdminUsuario"/>
 					</div>
 					
-					<div class="col-4">
+					<div class="col-1">
 						<p:commandButton value="Fechar" immediate="true" global="false"
 							onclick="PF('widgetVarDialogAdminUsuario').hide()"/>
 					</div>

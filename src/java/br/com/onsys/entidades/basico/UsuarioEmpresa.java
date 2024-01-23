@@ -1,6 +1,7 @@
 package br.com.onsys.entidades.basico;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -52,6 +53,24 @@ public class UsuarioEmpresa implements Serializable {
 
 	public void setEmpresa(Empresa empresa) {
 		this.empresa = empresa;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(empresa, id, usuario);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UsuarioEmpresa other = (UsuarioEmpresa) obj;
+		return Objects.equals(empresa, other.empresa) && Objects.equals(id, other.id)
+				&& Objects.equals(usuario, other.usuario);
 	}
 	
 	

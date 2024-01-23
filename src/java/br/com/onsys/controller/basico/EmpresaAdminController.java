@@ -56,7 +56,7 @@ public class EmpresaAdminController  implements Serializable {
 		PrimeFaces.current().executeScript("PF('widgetVarDialogAdminEmpresa').hide()");
 
 		FacesContext.getCurrentInstance().
-		addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário alterado.", ""));
+		addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Empresa alterada.", ""));
 
 	}
 	@Transactional
@@ -68,7 +68,7 @@ public class EmpresaAdminController  implements Serializable {
 
 
 		FacesContext.getCurrentInstance().
-		addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Usuário excluído.", ""));
+		addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Empresa excluída.", ""));
 		
 	}
 	

@@ -20,9 +20,19 @@ public class UsuarioEmpresaModel extends ManterEmpresaRepository <UsuarioEmpresa
 	public void salvarUsuarioEmpresas(Usuario usuario, List<Empresa> empresas) throws Exception {
 		for(Empresa empresa : empresas) {
 			UsuarioEmpresa usuarioEmpresa = new UsuarioEmpresa();
+			empresa.setNomeFantasia(getPlataformaBancoDeDados());
 			usuarioEmpresa.setEmpresa(empresa);
 			usuarioEmpresa.setUsuario(usuario);
 			super.salvar(usuarioEmpresa);
+		}
+		
+	}
+	
+	public void alterarUsuarioEmpresas(Usuario usuario,UsuarioEmpresa usuarioEmpresa , List<Empresa> empresas) throws Exception {
+		for(Empresa empresa : empresas) {
+			usuarioEmpresa.setEmpresa(empresa);
+			usuarioEmpresa.setUsuario(usuario);
+			super.alterar(usuarioEmpresa);
 		}
 		
 	}

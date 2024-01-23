@@ -11,11 +11,69 @@
         <li>Usuário Empresa Admin</li>
         <li>/</li>
         <li>
-            <p:link outcome="/views/basico/cadastros/usuarioEmpresa/usuarioEmpresa.xhtml">Usuário Empresa Admin</p:link>
+            <p:link outcome="/views/basico/cadastros/usuarioEmpresa/usuarioEmpresaAdmin.xhtml">Usuário Empresa Admin</p:link>
         </li>
      </ui:define>
 
     <ui:define name="content">
+	    <h:form id="idFormUsuarioEmpresaAdmin" prependId="false">
+	    	<p:growl id="idGrowlusuarioEmpresaAdmin" />
+	    	<p:commandButton value="Novo" 
+	    					 icon="pi pi-user-plus" 
+	    					 alt="Novo Usuário" 
+	    					 action="#{usuarioEmpresaAdminController.preSalvarUsuarioEmpresa}" 
+	    					 oncomplete="PF('widgetVarDialogAdminUsuarioEmpresa').show()" />
+	    	<p:dataTable var="usuario" reflow="true" 
+	    				 value="#{usuarioEmpresaAdminController.usuariosDataTable}">
+	    		
+	    		<p:column headerText="Email">
+	    			<h:outputText value="#{usuario.email}"/>
+	    		</p:column>
+	    		
+	    		<p:column headerText="Apelido">
+	    			<h:outputText value="#{usuario.apelido}"/>
+	    		</p:column>
+	    		
+	    		<p:column headerText="Nome">
+	    			<h:outputText value="#{usuario.nome}"/>
+	    		</p:column>
+	    	
+	    		
+	    		<p:column headerText="Tipo De Usuário">
+	    			<h:outputText value="#{usuario.tipoUsuarioEnum}"/>
+	    		</p:column>
+	    		
+	    		<p:column headerText="Ações" style="text-align: center !important;">
+	    			<p:commandButton icon="pi pi-pencil" styleClass="rounded-button" title="Editar"
+	    							 action="#{usuarioEmpresaAdminController.preEditarUsuarioEmpresa(usuario)}" 
+	    							 oncomplete="PF('widgetVarDialogAdminUsuarioEmpresa').show()"/>
+	    		
+	    			<p:spacer width="5"/>
+	    			<p:commandButton icon="pi pi-minus-circle" 
+	    							styleClass="rounded-button ui-button-danger" 
+	    							title="Excluir" update="idFormUsuarioEmpresaAdmin"
+	    							action="#{usuarioEmpresaAdminController.preExcluirUsuarioEmpresa(usuario)}"
+	    							oncomplete="PF('confirmDialogSalvarUsuarioEmpresa').show()" />
+	    		
+	    		
+	    		</p:column>
+	    		
+	    	</p:dataTable>
+	    	
+	    						 
+	    	<p:confirmDialog widgetVar="confirmDialogSalvarUsuarioEmpresa" header="Confirmação"
+                         message="Deseja Excluir o Usuário Empresa?"
+                         icon="pi pi-exclamation-triangle">
+				            <p:commandButton value="Sim" 
+				            				 update="idFormDialogAdminUsuarioEmpresa"
+				            				 oncomplete="PF('confirmDialogSalvarUsuarioEmpresa').hide()"
+				            				 action="#{usuarioEmpresaAdminController.excluirUsuarioEmpresa}" />
+				            <p:commandButton value="Não" onclick="PF('confirmDialogSalvarUsuarioEmpresa').hide()" />
+				            
+        	</p:confirmDialog>
+	    	
+    	</h:form>	
+     	<ui:include src="/views/basico/cadastros/dialog/usuarioEmpresa/dialogAdminUsuarioEmpresa.xhtml" />
     
     </ui:define>
     

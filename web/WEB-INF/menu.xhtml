@@ -10,11 +10,11 @@
 		<h:form id="menuform">
 			<pe:menu widgetVar="EcuadorMenuWidget">
 
-				<p:menuitem value="Dashboard" icon="pi pi-fw pi-home"
+				<p:menuitem value="Dashboard" icon="pi pi-fw pi-home" 
 					outcome="/WEB-INF/template.xhtml" />
 
-				<p:submenu label="Admin" icon="pi pi-user">
-					<p:submenu label="Cadastros" icon="pi pi-user">
+				<p:submenu label="Admin" icon="pi pi-user" expanded="true">
+					<p:submenu label="Cadastros" icon="pi pi-user" expanded="true">
 						
 						<p:menuitem value="Usuário Admin"
 								outcome="/views/basico/cadastros/usuario/usuarioAdmin.xhtml" />

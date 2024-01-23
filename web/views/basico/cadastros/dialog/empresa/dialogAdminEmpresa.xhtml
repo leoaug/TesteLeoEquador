@@ -13,27 +13,60 @@
 					<p:tab title="Dados Gerais">
 						<div class="grid">						
 							<div class="col-6">
-								<p:outputLabel for="codigo" value="Código: " style="padding: 18px 15px 10px 10px;"/>
+								<p:outputLabel for="codigo" value="Código: " style="padding: 18px 33px 10px 10px;"/>
 								<p:inputText id="codigo" required="true" requiredMessage="Informe o Nome" value="#{empresaAdminController.empresa.codigo}" />
 								<p:message for="codigo" />
 							</div>
+							
 							<div class="col-6">
 								<p:outputLabel for="nomeFantasia" value="Nome Fantasia: " style="padding: 18px 15px 10px 10px;"/>
 								<p:inputText id="nomeFantasia" required="true" requiredMessage="Informe o Nome Fantasia" value="#{empresaAdminController.empresa.nomeFantasia}" />
 								<p:message for="nomeFantasia" />
 							</div>
 						</div>
+						<div class="grid">	
+							<div class="col-6">
+								<p:outputLabel for="descricao" value="Descrição: " style="padding: 18px 15px 10px 10px;"/>
+								<p:inputText id="descricao" required="true" requiredMessage="Informe a Descrição" value="#{empresaAdminController.empresa.descricao}" />
+								<p:message for="descricao" />
+							</div>
+							
+							<div class="col-6">
+								<p:outputLabel for="mensagem" value="Mensagem: " style="padding: 18px 43px 10px 10px;"/>
+								<p:inputTextarea id="mensagem" required="true" rows="5" cols="18" requiredMessage="Informe a Mensagem" value="#{empresaAdminController.empresa.mensagem}" />
+								<p:message for="mensagem" />
+							</div>
+						</div>
+					</p:tab>
+					<p:tab title="Dados Fiscais">
+						<div class="grid">	
+							<div class="col-7">
+								<p:outputLabel for="percSimples" value="Percentual Simples: " style="padding: 18px 33px 10px 10px;"/>
+								<p:inputNumber id="percSimples" value="#{empresaAdminController.empresa.percSimples}" symbol="%" decimalPlaces="2" required="true" requiredMessage="Informe o Percentual Simples" emptyValue="empty" />
+							    <p:message for="percSimples" />
+							</div>
+						</div>					
+					</p:tab>
+					<p:tab title="Configurações">
+						<div class="grid">	
+							<div class="col-7">
+								<p:outputLabel for="login" value="Login: " style="padding: 18px 33px 10px 10px;"/>
+								<p:inputText id="login" value="#{empresaAdminController.empresa.login}"
+                                  required="true" requiredMessage="Informe o Login"  />
+							    <p:message for="login" />
+							</div>
+						</div>	
 					</p:tab>
 				</p:accordionPanel>
-				
+				<br/>
 				<div class="grid">
-					<div class="col-4">
+					<div class="col-2">
 						<p:commandButton value="#{empresaAdminController.dto.label}" 
 										 action="#{empresaAdminController.salvarOuAlterar}" 
 										 update="idDialogAdminEmpresa"/>
 					</div>
 					
-					<div class="col-4">
+					<div class="col-1">
 						<p:commandButton value="Fechar" immediate="true" global="false"
 							onclick="PF('widgetVarDialogAdminEmpresa').hide()"/>
 					</div>
